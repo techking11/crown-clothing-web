@@ -14,7 +14,11 @@ import {
   getFirestore,
   doc,
   getDoc,
-  setDoc
+  setDoc,
+  collection,
+  writeBatch,
+  query,
+  getDocs
 } from "firebase/firestore";
 import toast from "react-hot-toast";
 
@@ -37,6 +41,32 @@ googleProvider.setCustomParameters({
 export const auth = getAuth(firebaseApp);
 export const signInWithGooglePopup = () => signInWithPopup(auth, googleProvider);
 export const db = getFirestore();
+
+export const createCategoriesWithCollectionAndDocument = async (collectionKey, objectToAdd) => {
+  const collectionRef = collection(db, collectionKey);
+  const batch = writeBatch(db);
+  
+  objectToAdd.forEach(object => {
+    const docRef = doc(collectionRef, object.title.toLowerCase());
+    batch.set(docRef, object);
+  });
+  
+  await batch.commit();
+}
+
+export const getCategoriesWithCollection = async () => {
+  const collectionRef = collection(db, "categories");
+  const q = query(collectionRef);
+  const querySnapshot = await getDocs(q);
+  
+  const categoryMap = querySnapshot.docs.reduce((acc, docSnapshop) => {
+    const { title, items } = docSnapshop.data();
+    acc[title.toLowerCase()] = items;
+    return acc;
+  }, {});
+  
+  return categoryMap;
+}
 
 export const createCustomUserFromAuth = async (userAuth, additionalInfo = {}) => {
   if (!userAuth) return;
