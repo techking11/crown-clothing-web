@@ -1,0 +1,3 @@
+export const SET_ACTIONS_TYPE = {
+  SET_USER_TYPE: 'SET_USER_TYPE',
+};
