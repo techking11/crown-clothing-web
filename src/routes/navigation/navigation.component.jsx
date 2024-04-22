@@ -1,4 +1,4 @@
-import { useContext } from "react";
+// import { useContext } from "react";
 import "./navigation.style.jsx";
 
 import { Outlet } from "react-router-dom";
@@ -8,14 +8,16 @@ import { signOutUser } from "../../utils/firebase/firebase.utils";
 import toast from "react-hot-toast";
 import CartIcon from "../../components/cart-icon/cart-icon.component";
 import CartDropdown from "../../components/cart-dropdown/cart-dropdown.component";
-import { CartContext } from "../../context/cart.context";
+// import { CartContext } from "../../context/cart.context";
 import { LogoContainer, NavLink, NavLinksContainer, NavigationContainer } from "./navigation.style.jsx";
 import { useSelector } from "react-redux";
 import { selectCurrentUser } from "../../store/user/user.selector.js";
+import { selectIsCartOpen } from "../../store/cart/cart.selector.js";
 
 const Navigation = () => {
   // const { currentUser, setCurrentUser } = useContext(UserContext);
-  const { isCartOpen } = useContext(CartContext);
+  // const { isCartOpen } = useContext(CartContext);
+  const isCartOpen = useSelector(selectIsCartOpen);
   const currentUser = useSelector(selectCurrentUser);
 
   const signOutAuth = async () => {
