@@ -4,26 +4,32 @@ import { useEffect, useState } from "react";
 // import { ProductsContext } from "../../context/product.context";
 import ProductCard from "../../components/product-card/product-card.component";
 import { useSelector } from "react-redux";
-import { selectProducts } from "../../store/product/product.selector";
+import { selectProductIsLoading, selectProducts } from "../../store/product/product.selector";
+import Spinner from "../../components/spinner/spinner.component";
 
 const Category = () => {
   const { category } = useParams();
   // const { categories } = useContext(ProductsContext);
+  const isLoading = useSelector(selectProductIsLoading);
   const categories = useSelector(selectProducts);
   const [products, setProducts] = useState(categories[category]);
-  
+
   useEffect(() => {
     setProducts(categories[category]);
   }, [category, categories]);
-  
+
   return (
     <>
       <h2 className="category-title">{category.toLocaleLowerCase()}</h2>
-      <div className="category-container">
-        {products && products.map(product => (
-          <ProductCard key={product.id} product={product} />
-        ))}
-      </div>
+      {isLoading ? <Spinner /> :
+        <div className="category-container">
+          {products && products.map(product => (
+            <ProductCard key={product.id} product={product} />
+          ))}
+        </div>
+
+      }
+
     </>
   )
 }
