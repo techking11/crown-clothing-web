@@ -4,25 +4,32 @@ import "./navigation.style.jsx";
 import { Outlet } from "react-router-dom";
 import CrwnLogo from "../../assets/007 crown.svg";
 // import { UserContext } from "../../context/user.context";
-import { signOutUser } from "../../utils/firebase/firebase.utils";
+// import { signOutUser } from "../../utils/firebase/firebase.utils";
 import toast from "react-hot-toast";
 import CartIcon from "../../components/cart-icon/cart-icon.component";
 import CartDropdown from "../../components/cart-dropdown/cart-dropdown.component";
 // import { CartContext } from "../../context/cart.context";
 import { LogoContainer, NavLink, NavLinksContainer, NavigationContainer } from "./navigation.style.jsx";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { selectCurrentUser } from "../../store/user/user.selector.js";
 import { selectIsCartOpen } from "../../store/cart/cart.selector.js";
+import { signOutStart } from "../../store/user/user.action.js";
 
 const Navigation = () => {
+  const dispatch = useDispatch();
   // const { currentUser, setCurrentUser } = useContext(UserContext);
   // const { isCartOpen } = useContext(CartContext);
   const isCartOpen = useSelector(selectIsCartOpen);
   const currentUser = useSelector(selectCurrentUser);
 
-  const signOutAuth = async () => {
-    await signOutUser();
-    // setCurrentUser(null);
+  // const signOutAuth = async () => {
+  //   await signOutUser();
+  //   // setCurrentUser(null);
+  //   toast.success('Successfully signed out !');
+  // }
+  
+  const signOutAuth = () => {
+    dispatch(signOutStart());
     toast.success('Successfully signed out !');
   }
 

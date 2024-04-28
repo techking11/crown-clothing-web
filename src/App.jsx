@@ -7,24 +7,27 @@ import Shop from "./routes/shop/shop.component";
 
 import "./app.scss";
 import Checkout from "./routes/checkout/checkout.component";
-import { createCustomUserFromAuth, getCurrentUser, onAuthStateChangeedListener } from "./utils/firebase/firebase.utils";
+// import { createCustomUserFromAuth, getCurrentUser, onAuthStateChangeedListener } from "./utils/firebase/firebase.utils";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { setCurrentUser } from "./store/user/user.action";
+import { checkUserSession } from "./store/user/user.action";
 
 const App = () => {
     
     const dispatch = useDispatch();
     
     useEffect(() => {
+        dispatch(checkUserSession());
+      }, []);    
+    
+    //useEffect(() => {
         // const unsubscribe = 
         // onAuthStateChangeedListener((user)=> {
         //     if (user) createCustomUserFromAuth(user);
         //     dispatch(setCurrentUser(user));
         // });
         // return unsubscribe;
-        getCurrentUser();
-    }, []);
+    //}, []);
     
     
     return (

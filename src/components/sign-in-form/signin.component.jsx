@@ -39,7 +39,7 @@ const SignIn = () => {
         dispatch(googleSigninStart());
     }
 
-    const resetFormFields = () => setFormFields(fields);
+    const resetFormFields = () => setFormFields(fields);7
 
     const handleSubmit = async (event) => {
         event.preventDefault();

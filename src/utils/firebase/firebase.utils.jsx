@@ -89,7 +89,7 @@ export const createCustomUserFromAuth = async (userAuth, additionalInfo = {}) =>
     }
   }
   
-  return userDocRef;
+  return userSnapshot;
 };
 
 export const createUserWithGoogleEmailandPassword = async (email, password) => {
