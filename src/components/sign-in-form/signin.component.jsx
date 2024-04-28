@@ -1,14 +1,16 @@
 import { useState } from "react";
-import {
-    createCustomUserFromAuth,
-    signInWithGooglePopup,
-    signinUserWithGoogleEmailandPassword
-} from "../../utils/firebase/firebase.utils";
+// import {
+//     createCustomUserFromAuth,
+//     signInWithGooglePopup,
+//     signinUserWithGoogleEmailandPassword
+// } from "../../utils/firebase/firebase.utils";
 import FormInput from "../form-input/form-input.component";
 
 import "./signin.styles.scss";
 import Button from "../button/button.component";
 import toast from "react-hot-toast";
+import { useDispatch } from "react-redux";
+import { emailSigninStart, googleSigninStart } from "../../store/user/user.action";
 
 const fields = {
     email: "",
@@ -17,6 +19,7 @@ const fields = {
 
 
 const SignIn = () => {
+    const dispatch = useDispatch();
     const [formFields, setFormFields] = useState(fields);
     const { email, password } = formFields;
 
@@ -27,12 +30,13 @@ const SignIn = () => {
     }
 
     const logGoogleUser = async () => {
-        try {
-            const { user } = await signInWithGooglePopup();
-            await createCustomUserFromAuth(user);
-        } catch (error) {
-            toast.error(error.message);
-        }
+        // try {
+        //     const { user } = await signInWithGooglePopup();
+        //     await createCustomUserFromAuth(user);
+        // } catch (error) {
+        //     toast.error(error.message);
+        // }
+        dispatch(googleSigninStart());
     }
 
     const resetFormFields = () => setFormFields(fields);
@@ -41,7 +45,8 @@ const SignIn = () => {
         event.preventDefault();
 
         try {
-            await signinUserWithGoogleEmailandPassword(email, password);
+            // await signinUserWithGoogleEmailandPassword(email, password);
+            dispatch(emailSigninStart(email, password));
             resetFormFields();
             toast.success('Successfully signed in !');
         } catch (error) {
