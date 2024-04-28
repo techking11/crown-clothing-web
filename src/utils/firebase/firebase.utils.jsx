@@ -115,7 +115,7 @@ export const getCurrentUser = () => {
         unsubscribe();
         resolve(userAuth);
       },
-      // reject => console.error(reject),
+      reject
     )
   });
 }
