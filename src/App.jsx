@@ -19,7 +19,13 @@ const App = () => {
     useEffect(() => {
         onAuthStateChangeedListener((user) => {
             if (user) createCustomUserFromAuth(user);
-            const pickedUser = user && (({ accessToken, email }) => ({ accessToken, email }))(user);
+            const pickedUser = user &&
+                (({ accessToken, email }) => ({ accessToken, email }))(user);
+            /**
+            ** const pickedUser = user && (function({ accessToken, email }) {
+            **    return { accessToken, email };
+            ** })(user); 
+            *********************************************************************/
             dispatch(setCurrentUser(pickedUser));
         });
     }, []);
