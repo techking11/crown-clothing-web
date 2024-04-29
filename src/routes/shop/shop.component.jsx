@@ -3,19 +3,18 @@ import "./shop.styles.scss";
 import Category from "../category/category.component";
 import CategoriesPreview from "../categories-preview/categories-preview.component";
 import { useEffect } from "react";
-// import { getCategoriesWithCollection } from "../../utils/firebase/firebase.utils";
-import { fetchCategoriesStart } from "../../store/product/product.action";
 import { useDispatch } from "react-redux";
+import { getCategoriesWithCollection } from "../../utils/firebase/firebase.utils";
+import { setCategories } from "../../store/product/product.reducer";
 
 const Shop = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    // (async () => {
-    //   const categoriesMap = await getCategoriesWithCollection();
-    //   dispatch(setCategories(categoriesMap));
-    // })();
-    dispatch(fetchCategoriesStart());
+    (async () => {
+      const categoriesMap = await getCategoriesWithCollection();
+      dispatch(setCategories(categoriesMap));
+    })();
   }, []);
 
   return (

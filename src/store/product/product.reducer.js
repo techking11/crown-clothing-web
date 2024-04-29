@@ -1,38 +1,18 @@
-import { PRODUCT_ACTION_TYPE } from "./product.type";
+import { createSlice } from "@reduxjs/toolkit";
 
-const PRODUCT_INITIAL_STATE = {
+const INITIAL_STATE = {
   categories: {},
-  isLoading: false,
-  error: null,
 };
 
-export const productReducer = (state = PRODUCT_INITIAL_STATE, action = {}) => {
-  const { type, payload } = action;
+export const productSlice = createSlice({
+  name: "category",
+  initialState: INITIAL_STATE,
+  reducers: {
+    setCategories(state, action) {
+      state.categories = action.payload;
+    }
+  },
+});
 
-  switch (type) {
-    case PRODUCT_ACTION_TYPE.SET_PRODUCT_TYPE:
-      return {
-        ...state,
-        categories: payload,
-      };
-    case PRODUCT_ACTION_TYPE.SET_PRODUCT_START:
-      return {
-        ...state,
-        isLoading: true,
-      };
-    case PRODUCT_ACTION_TYPE.SET_PRODUCT_SUCCESS:
-      return {
-        ...state,
-        categories: payload,
-        isLoading: false,
-      };
-    case PRODUCT_ACTION_TYPE.SET_PRODUCT_FAILED:
-      return {
-        ...state,
-        error: payload,
-        isLoading: false,
-      };
-    default:
-      return state;
-  }
-};
+export const { setCategories } = productSlice.actions;
+export const productReducer = productSlice.reducer;
