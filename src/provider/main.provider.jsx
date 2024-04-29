@@ -4,13 +4,14 @@ import { CartProvider } from "../context/cart.context";
 import { StrictMode } from "react";
 import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
-import { persistor, store } from "../store/store";
-import { PersistGate } from "redux-persist/integration/react";
+import { reduxStore } from "../store/redux-store";
+// import { persistor, store } from "../store/store";
+// import { PersistGate } from "redux-persist/integration/react";
 
 const MainProvider = ({ children }) => (
   <StrictMode>
-    <Provider store={store}>
-      <PersistGate persistor={persistor}>
+    <Provider store={reduxStore}>
+      {/* <PersistGate persistor={persistor}> */}
         <BrowserRouter>
           {/* <UserProvider> */}
           <ProductsProvider>
@@ -18,7 +19,7 @@ const MainProvider = ({ children }) => (
           </ProductsProvider>
           {/* </UserProvider> */}
         </BrowserRouter>
-      </PersistGate>
+      {/* </PersistGate> */}
     </Provider>
   </StrictMode>
 )
