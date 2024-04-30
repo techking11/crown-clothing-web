@@ -9,7 +9,6 @@ import Spinner from "../../components/spinner/spinner.component";
 
 const Category = () => {
   const { category } = useParams();
-  // const { categories } = useContext(ProductsContext);
   const isLoading = useSelector(selectProductIsLoading);
   const categories = useSelector(selectProducts);
   const [products, setProducts] = useState(categories[category]);

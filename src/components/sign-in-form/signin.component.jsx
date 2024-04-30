@@ -9,8 +9,6 @@ import FormInput from "../form-input/form-input.component";
 import "./signin.styles.scss";
 import Button from "../button/button.component";
 import toast from "react-hot-toast";
-// import { useDispatch } from "react-redux";
-// import { emailSigninStart, googleSigninStart } from "../../store/user/user.action";
 
 const fields = {
     email: "",
