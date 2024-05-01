@@ -5,9 +5,9 @@ export const BUTTON_TYPE_CLASSES = {
     inverted: 'inverted'
 };
 
-const Button = ({ children, buttonType, ...otherPros }) => (
+const Button = ({ children, buttonType, disabled, ...otherPros }) => (
     <button className={`button-container ${BUTTON_TYPE_CLASSES[buttonType]}`}
-        {...otherPros}
+         disabled={disabled} {...otherPros}
     >{children}</button>
 );
 

@@ -1,0 +1,5 @@
+React Vite is clean and simple.Then it is suitable for biggner study.
+
+Use create-react-app for big project.
+
+That is my idea and also my experience.
