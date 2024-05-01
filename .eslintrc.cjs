@@ -18,5 +18,6 @@ module.exports = {
     ],
     "react/prop-types": ['off'],
     "no-unused-vars": "warn",
+    "node": true,
   },
 }
