@@ -10,6 +10,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@types/jest": "^29.5.12",
+    "@types/node": "^20.12.10",
     "dotenv": "^16.4.5",
     "firebase": "^10.10.0",
     "react": "^18.2.0",
@@ -23,11 +25,12 @@
     "redux-thunk": "^3.1.0",
     "reselect": "^5.1.0",
     "sass": "^1.72.0",
-    "styled-components": "^6.1.8"
+    "styled-components": "^6.1.8",
+    "typescript": "^5.4.5"
   },
   "devDependencies": {
-    "@types/react": "^18.2.15",
-    "@types/react-dom": "^18.2.7",
+    "@types/react": "^18.3.1",
+    "@types/react-dom": "^18.3.0",
     "@vitejs/plugin-react": "^4.0.3",
     "eslint": "^8.45.0",
     "eslint-plugin-react": "^7.32.2",

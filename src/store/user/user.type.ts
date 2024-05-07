@@ -1,0 +1,3 @@
+export enum SET_ACTIONS_TYPE {
+  SET_USER_TYPE = 'USER/SET_USER_TYPE',
+};
