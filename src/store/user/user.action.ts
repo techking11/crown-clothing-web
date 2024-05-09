@@ -32,7 +32,8 @@ export const googleSigninStart = withMatchable(
 
 export type emailSigninStart = ActionWithPayload<
   SET_ACTIONS_TYPE.EMAIL_SIGN_IN_START, {
-    email: string, password: string
+    email: string, 
+    password: string
   }>;
 export const emailSigninStart = withMatchable(
   (email: string, password: string): emailSigninStart =>
@@ -45,7 +46,7 @@ export const emailSigninStart = withMatchable(
 
 export type signinSuccess = ActionWithPayload<SET_ACTIONS_TYPE.SIGN_IN_SUCCESS, UserData>;
 export const signinSuccess = withMatchable(
-  (user: UserData): signinSuccess =>
+  (user: UserData & { id: string }): signinSuccess =>
     createAction(SET_ACTIONS_TYPE.SIGN_IN_SUCCESS, user)
 );
 
