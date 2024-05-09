@@ -1,13 +1,14 @@
-import { useState } from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
 import {
     createUserWithGoogleEmailandPassword,
     createCustomUserFromAuth
 } from "../../utils/firebase/firebase.utils";
-import FormInput from "../form-input/form-input.component";
 
-import "./signup.styles.scss";
+import FormInput from "../form-input/form-input.component";
 import Button from "../button/button.component";
+
 import toast from "react-hot-toast";
+import "./signup.styles.scss";
 
 const fields = {
     displayName: "",
@@ -16,11 +17,11 @@ const fields = {
     confirmPassword: ""
 };
 
-
 const SignUp = () => {
     const [formFields, setFormFields] = useState(fields);
     const { displayName, email, password, confirmPassword } = formFields;
-    const handleChange = (event) => {
+    
+    const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
         const { name, value } = event.target;
         setFormFields({ ...formFields, [name]: value });
         // formFields[event.target.name] = event.target.value;
@@ -28,30 +29,22 @@ const SignUp = () => {
 
     const resetFormFields = () => setFormFields(fields);
 
-    const handleSubmit = async (event) => {
+    const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        
+
         try {
             if (password === confirmPassword) {
-                const { user } = await createUserWithGoogleEmailandPassword( email, password);
-                await createCustomUserFromAuth( user, { displayName });
+                const userCredential = await createUserWithGoogleEmailandPassword(email, password);
+                if(userCredential) {
+                    const { user } = userCredential;
+                    await createCustomUserFromAuth(user, { displayName });
+                }
                 resetFormFields();
                 toast.success('Successfully signed up !');
             } else toast.error('Password not match !');
-            
-        } catch (error) {
-            switch (error.code) {
-                case "auth/weak-password":
-                    toast.error("Password should be more than 6 characters !");
-                    break;
-                case "auth/email-already-in-use":
-                    toast.error("Cannot create a user, email already in use !");
-                    break;
-                default:
-                    toast.error("Error: " + error.message + " !");
-                    break;
-            }
 
+        } catch (error) {
+            toast.error("Error: " + error + " !");
         }
     };
     return (

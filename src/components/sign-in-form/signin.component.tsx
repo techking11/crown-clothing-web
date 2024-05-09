@@ -1,9 +1,11 @@
-import { useState } from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
+
 import {
     createCustomUserFromAuth,
     signInWithGooglePopup,
     signinUserWithGoogleEmailandPassword
 } from "../../utils/firebase/firebase.utils";
+
 import FormInput from "../form-input/form-input.component";
 
 import "./signin.styles.scss";
@@ -20,7 +22,7 @@ const SignIn = () => {
     const [formFields, setFormFields] = useState(fields);
     const { email, password } = formFields;
 
-    const handleChange = (event) => {
+    const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
         const { name, value } = event.target;
         setFormFields({ ...formFields, [name]: value });
         // formFields[event.target.name] = event.target.value;
@@ -31,13 +33,13 @@ const SignIn = () => {
             const { user } = await signInWithGooglePopup();
             await createCustomUserFromAuth(user);
         } catch (error) {
-            toast.error(error.message);
+            toast.error("Error: " + error);
         }
     }
 
     const resetFormFields = () => setFormFields(fields);
 
-    const handleSubmit = async (event) => {
+    const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
         try {
@@ -45,14 +47,7 @@ const SignIn = () => {
             resetFormFields();
             toast.success('Successfully signed in !');
         } catch (error) {
-            switch (error.code) {
-                case "auth/invalid-credential":
-                    toast.error('Check your credentials !');
-                    break;
-                default:
-                    toast.error("Error: " + error.message + " !");
-                    break;
-            }
+            toast.error("Error: " + error + " !");
         }
     };
     return (
@@ -76,7 +71,7 @@ const SignIn = () => {
                 />
                 <div className="button-containers">
                     <Button type="submit">Sign in</Button>
-                    <Button buttonType="google" onClick={logGoogleUser}>Google sign in</Button>
+                    <Button buttonType='google' onClick={logGoogleUser}>Google sign in</Button>
                 </div>
             </form>
         </div>

@@ -4,9 +4,16 @@ import { Outlet } from "react-router-dom";
 import CrwnLogo from "../../assets/007 crown.svg";
 import { signOutUser } from "../../utils/firebase/firebase.utils";
 import toast from "react-hot-toast";
-import CartIcon from "../../components/cart-icon/cart-icon.component";
-import CartDropdown from "../../components/cart-dropdown/cart-dropdown.component";
-import { LogoContainer, NavLink, NavLinksContainer, NavigationContainer } from "./navigation.style.jsx";
+import CartIcon from "../../components/cart-icon/cart-icon.component.js";
+import CartDropdown from "../../components/cart-dropdown/cart-dropdown.component.jsx";
+
+import {
+  LogoContainer,
+  NavLink,
+  NavLinksContainer,
+  NavigationContainer
+} from "./navigation.style";
+
 import { useSelector } from "react-redux";
 import { selectCurrentUser } from "../../store/user/user.selector";
 import { selectIsCartOpen } from "../../store/cart/cart.selector";
@@ -28,11 +35,15 @@ const Navigation = () => {
         </LogoContainer>
         <NavLinksContainer>
           <NavLink to='/shop'>SHOP</NavLink>
-          {currentUser ?
-            <NavLink as="span" onClick={signOutAuth}>SIGN OUT</NavLink>
-            :
-            <NavLink to='/auth'>SIGN IN</NavLink>
-          }
+          {currentUser ? (
+            <NavLink as="span" to="" onClick={signOutAuth}>
+              SIGN OUT
+            </NavLink>
+          ) : (
+            <NavLink to='/auth'>
+              SIGN IN
+            </NavLink>
+          )}
           <CartIcon />
 
         </NavLinksContainer>
